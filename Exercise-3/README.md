@@ -1,6 +1,5 @@
-Exercise-3: Minikube scaling
-Outputs:
+Exercise-3: Minikube scaling Outputs:
 
-![Screenshot 1](screenshots/Screenshot%20From%202026-10-23%2012-57-19.png)
+![Screenshot 1](screenshots/replicaset-pods.png)
 
-![Screenshot 2](screenshots/Screenshot%20From%202026-10-23%2012-57-46.png)
+![Screenshot 2](screenshots/replicaset-scaling.png)
