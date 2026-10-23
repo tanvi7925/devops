@@ -1,0 +1,41 @@
+
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout / Workspace') {
+            steps {
+                echo 'Starting ZAPPTTO Delivery Monitoring'
+                sh 'pwd'
+                sh 'ls -la'
+            }
+        }
+
+        stage('Validate Python Application') {
+            steps {
+                sh '''
+                    docker run --rm \
+                      -v "$WORKSPACE:/app" \
+                      -w /app python:3.12-slim \
+                      sh -c "pip install prometheus-client -q && python -m py_compile delivery_metrics.py"
+                '''
+            }
+        }
+
+        stage('Validate Monitoring Config') {
+            steps {
+                sh '''
+                    test -f prometheus.yml
+                    test -f alert_rules.yml
+                    echo "Monitoring configuration files found"
+                '''
+            }
+        }
+
+        stage('Build Result') {
+            steps {
+                echo 'Delivery monitoring validation completed'
+            }
+        }
+    }
+}
